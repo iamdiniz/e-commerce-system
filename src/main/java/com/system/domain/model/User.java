@@ -18,12 +18,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "users")
 @Table(name = "users")
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements UserDetails {
 	
@@ -47,6 +51,14 @@ public class User implements UserDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
+	
+	public User(String name, String email, String password, BigDecimal balance, UserRole role) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.balance = balance;
+		this.role = role;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
