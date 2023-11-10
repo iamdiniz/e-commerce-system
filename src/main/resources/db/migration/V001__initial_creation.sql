@@ -4,7 +4,6 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     balance NUMERIC(19, 2) NOT NULL,
-    role TEXT NOT NULL
+    role VARCHAR(20),
+    CONSTRAINT email_unique UNIQUE (email)
 );
-
-ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);

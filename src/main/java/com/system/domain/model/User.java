@@ -31,8 +31,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements UserDetails {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -49,7 +47,6 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private BigDecimal balance;
 	
-	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
 	public User(String name, String email, String password, BigDecimal balance, UserRole role) {

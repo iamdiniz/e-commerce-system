@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.system.api.model.AuthenticationDTO;
+import com.system.api.model.LoginResponseDTO;
 import com.system.api.model.RegisterDTO;
 import com.system.domain.model.User;
 import com.system.domain.repository.UserRepository;
+import com.system.infra.security.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -27,12 +29,17 @@ public class AuthenticationController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@PostMapping("/login")
 	public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 		var auth = this.authenticationManager.authenticate(usernamePassword);
 		
-		return ResponseEntity.ok().build();
+		var token = tokenService.generateToken((User) auth.getPrincipal());
+		
+		return ResponseEntity.ok(new LoginResponseDTO(token));
 	}
 
 	@PostMapping("/register")

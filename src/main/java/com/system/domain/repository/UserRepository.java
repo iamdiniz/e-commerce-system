@@ -10,5 +10,5 @@ import com.system.domain.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	UserDetails findByEmail(String email);
-	
+
 }

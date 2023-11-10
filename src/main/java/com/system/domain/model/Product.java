@@ -2,16 +2,22 @@ package com.system.domain.model;
 
 import java.math.BigDecimal;
 
+import com.system.api.model.ProductRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
 	
@@ -24,5 +30,10 @@ public class Product {
 	
 	@Column(nullable = false)
 	private BigDecimal price;
+	
+	public Product(ProductRequestDTO data){
+		this.price = data.price();
+	    this.name = data.name();
+	}
 
 }
